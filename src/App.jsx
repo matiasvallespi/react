@@ -1,37 +1,172 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useState, useEffect } from 'react'
+//import reactLogo from './assets/react.svg'
+//import viteLogo from '/vite.svg'
 import './App.css'
+import { Usuario } from './usuario';
 
 function App() {
-  const [count, setCount] = useState(0)
-  const backgroundImageUrl="https://png.pngtree.com/thumb_back/fh260/background/20221110/pngtree-video-game-console-controller-pattern-seamless-vector-repeat-geometric-yellow-for-image_1455567.jpg"
+  const lista = [
+    {
+      nombre: "Matias",
+      apellido: "Vallespi",
+      edad: 27,
+      ciudad: "Buenos Aires"
+    },
+    {
+      nombre: "Ana",
+      apellido: "González",
+      edad: 35,
+      ciudad: "Madrid"
+    },
+    {
+      nombre: "John",
+      apellido: "Smith",
+      edad: 30,
+      ciudad: "New York"
+    }
+  ];
 
-  return (
-    <>
-      <div>
-        <div><p style={{ backgroundImage: `url(${backgroundImageUrl})` }} className='w-150 h-10 font-bold text-white rounded m-20'><span className='hover:text-3xl hover:text-sky-200'>Controles PES para onvres:</span>  <span className='hover:text-gray-500 hover:text-2xl'>R1 = Correr</span> <span className='hover:text-gray-500 hover:text-2xl'>L1 = Cambiar Jugador</span>   <span className='hover:text-green-500 hover:text-2xl'>△ = Pase Profundidad</span>  <span className='hover:text-blue-400 hover:text-2xl'>X = Pase Corto</span>  <span className='hover:text-red-400 hover:text-2xl'>◯ = Centro</span>  <span className='hover:text-purple-400 hover:text-2xl'>▢ = Tiro</span> </p></div>
-        <button className='m-10 border-2 border-black rounded p-2 font-bold hover:bg-black hover:text-white active:bg-red-600'>Click Here!</button>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+  const [numero, setNumero] = useState(0)
+  const [estado, setState] = useState(false)
+  const increase = () => {
+    setNumero(numero + 1)
+    setState(!estado)
+  }
+  const decrease = () => {
+    setNumero(numero - 1)
+    setState(!estado)
+  }
+  const renderList = lista.map(objeto => (
+    <tr>
+      <td className='border border-slate-300'>{objeto.nombre}</td>
+      <td className='border border-slate-300'>{objeto.apellido}</td>
+      <td className='border border-slate-300'>{objeto.edad}</td>
+      <td className='border border-slate-300'>{objeto.ciudad}</td>
+    </tr>
+  ));
+
+
+  const [number, setNumber] = useState(0)
+  const [show, setShow] = useState(true)
+
+  const suma = () => {
+    setNumber(number + 1)
+    setShow(!show)
+    setText("Estas sumando")
+  }
+
+  const resta = () => {
+    setNumber(number - 1)
+    setShow(!show)
+    setText("Estas restando")
+  }
+
+  const [text, setText] = useState("")
+
+  let nombres = ["MATIAS", "PABLO", "NICOLAS", "GONZALO", "PEDRO", "OLIVER", "ENZO", "LEANDRO", "EMILIANO", "LIONEL"]
+  let edades = ["27", "33", "28", "27", "35", "23", "24", "29", "32", "36"]
+  let clubes = ["C.A.HURACAN", "RACING CLUB", "C.A.HURACAN", "RIVER PLATE", "WATFORD", "PERU", "CHELSEA", "ROMA", "ASTON VILLA", "INTER MIAMI"]
+
+  const nombre = <h1>NOMBRE: {nombres[number]}</h1>
+  const edad = <p>EDAD: {edades[number]}</p>
+  const nacionalidad = <h4>CLUB: {clubes[number]}</h4>
+
+  const usuario = <div>NOMBRE: {nombres[number]} | EDAD: {edades[number]} | CLUB: {clubes[number]} </div>
+
+  const NombreComponente = () => {
+    return <div>{usuario} {usuario}</div> //Un componente debe escribirse como CamelCase (el componente tiene elementos html)
+  }
+
+  const [testo, setTesto] = useState("")
+
+  const handleChange = (evento) => setTesto(evento.target.value)
+
+  const [mostrar, setMostrar] = useState(true)
+
+  const mostro = () => {
+    setMostrar(!mostrar)
+  }
+
+  const [contador, setContador] = useState(0)
+  // const constadors = () => {
+  //   setContador(contador+1)
+  // }
+  useEffect(()=>{
+    setContador(contador+2)
+    return setContador(contador-1)
+  }, [])
+  
+
+  return (<div>
+
+    <button onClick={suma}>Sumar</button>
+    <button onClick={resta}>Restar</button>
+    <p>{show === true ? number : "any"}</p>
+    <p>{text}</p>
+
+    {nombre}
+    {edad}
+    {nacionalidad}
+
+    {mostrar ? <Usuario /> : ""}
+    <button onClick={mostro}>{mostrar ? "Ocultar" : "Mostrar"}</button>
+
+    <NombreComponente />
+
+    <input className='border-2 border-black rounded' onChange={handleChange} type="text" />
+    <p>{testo}</p>
+
+    <Usuario continente="America" pais="Brasil" ciudad="San Pablo" />
+
+    <hr />
+
+    <p>{contador}</p>
+    <button className='p-2 border-2 border-blue-400 rounded text-bold' onClick={useEffect}>CLICKEA!!!</button>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <hr />
+
+    <p>Escriba su nombre:</p>
+    <input onChange={handleChange} className='border-2 border-black rounded' type="text" />
+    <button onClick={increase} className='m-2 bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 text-white font-bold py-2 px-4 rounded shadow-lg hover:shadow-xl transform hover:scale-105 transition-transform duration-300 ease-in-out'>Aumentar</button>
+    <button onClick={decrease} className='m-2 bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 text-white font-bold py-2 px-4 rounded shadow-lg hover:shadow-xl transform hover:scale-105 transition-transform duration-300 ease-in-out'>Decrementar</button>
+    <p>{numero !== 0 ? numero : "0"}</p>
+    <p>{estado === false ? "False" : "True"}</p>
+    <table className='class="border-separate border border-slate-400'>
+      <thead>
+        <th className='border border-slate-300'>NOMBRE</th>
+        <th className='border border-slate-300'>APELLIDO</th>
+        <th className='border border-slate-300'>EDAD</th>
+        <th className='border border-slate-300'>CIUDAD</th>
+      </thead>
+      <tbody>
+        {renderList}
+      </tbody>
+    </table>
+
+  </div>
   )
 }
 
